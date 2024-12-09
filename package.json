@@ -1,0 +1,30 @@
+{
+  "name": "when-and-where-to-meet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@fontsource/roboto": "^5.1.0",
+    "@mui/icons-material": "^6.1.10",
+    "@mui/material": "^6.1.10",
+    "cookies-next": "^5.0.2",
+    "next": "15.0.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "15.0.4",
+    "postcss": "^8",
+    "prettier": "^3.4.2",
+    "prettier-eslint": "^16.3.0",
+    "tailwindcss": "^3.4.1"
+  }
+}
