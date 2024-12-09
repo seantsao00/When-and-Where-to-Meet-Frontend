@@ -7,8 +7,6 @@ import {
   Switch,
   Dialog,
   DialogTitle,
-  List,
-  ListItem,
   DialogContent,
 } from "@mui/material";
 import { useActionState, useState } from "react";
@@ -19,7 +17,6 @@ export default function EditMeetForm({ meet, meetId, action }) {
   return (
     <>
       <Box>
-        <Typography variant="h2">Update Meet Info</Typography>
         <Box component="form" action={formAction}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <input type="hidden" value={isPublic} name="ispublic" />
@@ -57,15 +54,14 @@ export default function EditMeetForm({ meet, meetId, action }) {
                 marginLeft: "1rem",
               }}
             >
-              <Typography variant="span">Public Meet</Typography>
+              <Typography component="span">Public Meet</Typography>
               <Switch
-                label="Public Meet"
                 checked={isPublic}
                 onChange={(event) => setIsPublic(event.target.checked)}
               />
             </Box>
             <Button type="submit" disabled={pending}>
-              Update
+              Update meet description
             </Button>
             {pending ? "please wait..." : message}
           </Box>

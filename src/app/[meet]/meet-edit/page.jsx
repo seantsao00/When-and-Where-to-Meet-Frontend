@@ -1,7 +1,8 @@
-import { auth } from "@/auth";
+import { auth, fetchWithAuth } from "@/auth";
 import EditMeetForm, { DeletePage } from "./meet-edit-form";
 import { redirect } from "next/navigation";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import ListLocations from "./list-locations";
 
 async function action(_, formData) {
   "use server";
@@ -50,10 +51,39 @@ export default async function Meet({ params }) {
     locationId: "zoom",
   };
   return (
-    <>
-      <EditMeetForm meet={meet} meetId={meetId} action={action} />
-      <Box sx={{ marginTop: "0.5rem" }} />
-      <DeletePage action={deletePage} meetId={meetId} />
-    </>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <Typography variant="h2">Update Meet Info</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          gap: "2rem",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            width: "50%",
+          }}
+        >
+          <EditMeetForm meet={meet} meetId={meetId} action={action} />
+          <DeletePage action={deletePage} meetId={meetId} />
+        </Box>
+        <Box sx={{ width: "50%" }}>
+          <ListLocations meetId={meetId}></ListLocations>
+        </Box>
+      </Box>
+    </Box>
   );
 }

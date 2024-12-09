@@ -1,10 +1,11 @@
+import { fetchNoAuth } from "@/auth";
 import { List, Card, Box, Stack, Typography, ListItem } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 
 export default async function Meet({ params }) {
   const meetId = (await params).meet;
 
-  //   const meetDetail = await fetch(`/api/meets/${meetId}`);
+  // const meetDetail = await fetchNoAuth(`/api/meets/${meetId}`);
   //   if (meetDetail.status === 404) {
   //     return <Typography variant="h3">Meet not found</Typography>;
   //   }
