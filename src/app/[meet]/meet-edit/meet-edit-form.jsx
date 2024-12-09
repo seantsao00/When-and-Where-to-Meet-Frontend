@@ -1,5 +1,16 @@
 "use client";
-import { Button, Box, TextField, Typography, Switch } from "@mui/material";
+import {
+  Button,
+  Box,
+  TextField,
+  Typography,
+  Switch,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  DialogContent,
+} from "@mui/material";
 import { useActionState, useState } from "react";
 
 export default function EditMeetForm({ meet, meetId, action }) {
@@ -61,5 +72,47 @@ export default function EditMeetForm({ meet, meetId, action }) {
         </Box>
       </Box>
     </>
+  );
+}
+
+export function DeletePage({ meetId, action }) {
+  const [message, formAction, pending] = useActionState(action, null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" color="warning" onClick={handleClickOpen}>
+        Delete Meet
+      </Button>
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Are you sure you want to delete this meet?</DialogTitle>
+        <DialogContent sx={{ margin: "auto" }}>
+          <Box component="form" action={formAction}>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+            >
+              <input type="hidden" name="meetid" value={meetId} />
+              <Button
+                color="warning"
+                disabled={pending}
+                type="submit"
+                sx={{ paddingX: "3rem" }}
+              >
+                Yes
+              </Button>
+              {pending ? "please wait..." : message}
+            </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

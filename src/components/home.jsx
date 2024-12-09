@@ -43,9 +43,7 @@ export function Authed({ userId }) {
     <Box>
       <Typography variant="h3">Hi {userId}</Typography>
       <Box component="form" action={signOut}>
-        <Button variant="contained" type="submit">
-          Logout
-        </Button>
+        <Button type="submit">Logout</Button>
       </Box>
     </Box>
   );

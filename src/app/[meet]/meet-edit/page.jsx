@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
-import EditMeetForm from "./meet-edit-form";
+import EditMeetForm, { DeletePage } from "./meet-edit-form";
 import { redirect } from "next/navigation";
+import { Box } from "@mui/material";
 
 async function action(_, formData) {
   "use server";
@@ -17,6 +18,18 @@ async function action(_, formData) {
   //   return "error";
   // }
   redirect(`/${meetId}`);
+}
+
+async function deletePage(_, formData) {
+  "use server";
+  const meetId = formData.get("meetid");
+  const response = await fetchWithAuth(`/api/meets/${meetId}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    return "error";
+  }
+  redirect(`/`);
 }
 
 export default async function Meet({ params }) {
@@ -36,5 +49,11 @@ export default async function Meet({ params }) {
     holderId: "alice",
     locationId: "zoom",
   };
-  return <EditMeetForm meet={meet} meetId={meetId} action={action} />;
+  return (
+    <>
+      <EditMeetForm meet={meet} meetId={meetId} action={action} />
+      <Box sx={{ marginTop: "0.5rem" }} />
+      <DeletePage action={deletePage} meetId={meetId} />
+    </>
+  );
 }
