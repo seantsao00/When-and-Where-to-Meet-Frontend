@@ -57,6 +57,3 @@ export async function signOut() {
   const cookieStore = await cookies();
   cookieStore.delete("userid");
 }
-
-// TODO
-export async function register(userId, email) {}
