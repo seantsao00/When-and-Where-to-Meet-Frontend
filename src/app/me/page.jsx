@@ -3,7 +3,7 @@ import { fetchWithAuth } from "@/auth";
 import { Card, Stack, Typography, List, ListItemText } from "@mui/material";
 
 export default async function Info() {
-  //   const userId = await auth();
+  const userId = await auth();
   //   const response = await fetchWithAuth(`/api/users/${userId}`);
   //   if (response.status === 403) {
   //     return <h1>Forbidden</h1>;
@@ -26,6 +26,7 @@ export default async function Info() {
           <Typography variant="h6">{userData.userName}</Typography>
           <List dense>
             <ListItemText primary={`email: ${userData.userEmail}`} />
+            <ListItemText primary={`user id: ${userId}`} />
           </List>
         </Card>
       </Stack>
