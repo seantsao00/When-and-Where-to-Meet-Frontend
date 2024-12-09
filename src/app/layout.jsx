@@ -25,7 +25,15 @@ export default function RootLayout({ children }) {
             }}
           >
             <Navbar />
-            <Box sx={{ paddingX: "15%", paddingTop: "2%" }}>{children}</Box>
+            <Box
+              sx={{
+                paddingX: "15%",
+                paddingTop: "2%",
+                width: "100%",
+              }}
+            >
+              {children}
+            </Box>
           </Box>
         </ThemeProvider>
       </body>

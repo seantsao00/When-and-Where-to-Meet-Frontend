@@ -96,7 +96,7 @@ function HomeList({ path }) {
     </>
   );
 }
-export function Header() {
+export function Header({ userId }) {
   const path = usePathname();
   const serializedPath = path.split("/");
 
@@ -121,7 +121,7 @@ export function Header() {
           WhereWhen2meet
         </Typography>
       </Link>
-      {type == PathTypes.HOME && <HomeList path={path} />}
+      {type == PathTypes.HOME && userId && <HomeList path={path} />}
       {type == PathTypes.ME && <MeList path={serializedPath.at(2) || ""} />}
       {type == PathTypes.MEET && (
         <MeetList
