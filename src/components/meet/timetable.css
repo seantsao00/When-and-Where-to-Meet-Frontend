@@ -1,0 +1,31 @@
+.common-style {
+  height: 10px;
+  max-width: 50px;
+  min-width: 45px;
+  box-sizing: border-box;
+}
+.td-style {
+  border: 1px black solid;
+}
+.time-style {
+  transform: translateY(-50%);
+  font-size: 11px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.section0 {
+  border-bottom: none;
+}
+.section1 {
+  border-top: none;
+  border-bottom: dotted;
+}
+.section2 {
+  border-top: none;
+  border-bottom: none;
+}
+.section3 {
+  border-top: none;
+}

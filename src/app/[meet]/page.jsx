@@ -1,6 +1,6 @@
-import { fetchNoAuth } from "@/auth";
-import { List, Card, Box, Stack, Typography, ListItem } from "@mui/material";
-import ListItemText from "@mui/material/ListItemText";
+import MeetInfo from "@/components/meet/meet-info";
+import TimeTable from "@/components/meet/time-table";
+import { Stack } from "@mui/material";
 
 export default async function Meet({ params }) {
   const meetId = (await params).meet;
@@ -19,27 +19,32 @@ export default async function Meet({ params }) {
     isPublic: true,
     holderId: "alice",
     locationId: "zoom",
+    startDate: "2022-01-01",
+    endDate: "2022-01-13",
+    startTime: "00:00:00",
+    endTime: "20:00:00",
   };
+
+  const allAvailabilities = [
+    "2022-01-01 00:00:00",
+    "2022-01-01 00:15:00",
+    "2022-01-01 00:30:00",
+    "2022-01-01 00:45:00",
+    "2022-01-01 01:00:00",
+    "2022-01-01 01:10:00",
+    "2022-01-01 00:15:00",
+    "2022-01-01 00:30:00",
+  ];
+  const myAvailabilities = ["2022-01-01 00:30:00", "2022-01-01 00:45:00"];
+
   return (
-    <>
-      <Stack spacing={1}>
-        <Card sx={{ paddingX: "1.5rem", paddingY: "0.5rem" }}>
-          <Typography variant="h3" textAlign="center">
-            {meet.meetName}
-          </Typography>
-          <Typography variant="h6">{meet.meetDescription}</Typography>
-          <List dense>
-            <ListItemText
-              primary={`Public meet: ${meet.isPublic ? "Yes" : "No"}`}
-            />
-            <ListItemText primary={`Holder: ${meet.holderId}`} />
-            {meet.locationId && (
-              <ListItemText primary={`Location: ${meet.locationId}`} />
-            )}
-          </List>
-        </Card>
-      </Stack>
-      <Box></Box>
-    </>
+    <Stack direction="column" spacing={2}>
+      <MeetInfo meet={meet} />
+      <TimeTable
+        meet={meet}
+        initAllAvailabilities={allAvailabilities}
+        initMyAvailabilities={myAvailabilities}
+      />
+    </Stack>
   );
 }

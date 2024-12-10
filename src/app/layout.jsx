@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Navbar from "@/components/navbar";
 import theme from "@/theme";
+import { Stack } from "@mui/material";
 
 export const metadata = {
   title: "WhereWhen2meet",
@@ -13,16 +14,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head></head>
-      <body style={{ margin: 0, height: "100vh", width: "100vw" }}>
+      <body className="m-0 h-screen w-screen">
         <ThemeProvider theme={theme}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              height: "100%",
-              width: "100%",
-            }}
+          <Stack
+            direction="column"
+            sx={{ height: "100%", width: "100%" }}
+            alignItems="center"
           >
             <Navbar />
             <Box
@@ -30,11 +27,12 @@ export default function RootLayout({ children }) {
                 paddingX: "15%",
                 paddingTop: "2%",
                 width: "100%",
+                paddingBottom: "2%",
               }}
             >
               {children}
             </Box>
-          </Box>
+          </Stack>
         </ThemeProvider>
       </body>
     </html>

@@ -7,8 +7,11 @@ import { auth } from "@/auth";
 export default async function Navbar() {
   const usrId = await auth();
   return (
-    <Box component="nav" sx={{ width: "100vw" }}>
-      <AppBar position="sticky">
+    <Box
+      component="nav"
+      sx={{ width: "100vw", position: "sticky", top: 0, zIndex: 100 }}
+    >
+      <AppBar position="static">
         <Toolbar>
           <Header usrId={usrId} />
         </Toolbar>

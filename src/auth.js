@@ -5,7 +5,8 @@ import { cookies } from "next/headers";
 
 export async function fetchWithAuth(url, options) {
   const usrId = await auth();
-  if (options && usrId) {
+  if (usrId) {
+    if (!options) options = {};
     if (!options.headers) options.headers = {};
     options.headers.Authorization = `Bearer ${usrId}`;
   }
@@ -23,17 +24,15 @@ export async function auth() {
 
 export async function signIn(_, formData) {
   const cookieStore = await cookies();
-  // const response = await fetchNoAuth("/api/usrs", {
-  //   method: "GET",
-  //   body: JSON.stringify({ email: formData.get("usremail") }),
-  // });
+  const usrId = formData.get("usrid");
+  // const response = await fetchNoAuth(`/api/usrs/${usrId}`);
   // if (response.status === 404) {
   //   return 'no such user';
   // }
   // if (!response.ok) {
   //   return 'unknown error';
   // }
-  cookieStore.set("usrid", formData.get("usrid"));
+  cookieStore.set("usrid", usrId);
   revalidatePath("/");
   return "success";
 }
