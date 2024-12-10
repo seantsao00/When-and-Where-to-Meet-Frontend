@@ -3,6 +3,8 @@
     "baseUrl": ".",
     "checkJs": true,
     "jsx": "react-jsx",
+    "target": "ES6",
+    "moduleResolution": "node",
     "paths": {
       "@/*": ["./src/*"]
     }
