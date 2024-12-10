@@ -8,7 +8,7 @@ This repository contains the frontend for the "When-and-Where-to-Meet" applicati
 Ensure you have the following installed and configured on your system:
 
 - **Node.js**: Required for running the frontend.
-    - Particularly, `node` version `0.40.1` and `npm` version `10.9.0` are preferred.
+    - Particularly, `node` version `23.1.0` and `npm` version `10.9.0` are preferred.
 
 ## Environment Setup
 
@@ -29,7 +29,7 @@ Ensure you have the following installed and configured on your system:
 
 3. **(Local test)**
 
-   Run the following command to run in developmenet mode:
+   Run the following command to run in development mode:
    ```bash
    npm run dev
    ```
