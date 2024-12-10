@@ -25,6 +25,7 @@ export default function EditMeetForm({ meet, meetId, action }) {
               name="meetname"
               label="Meet Name"
               variant="filled"
+              required
               defaultValue={meet.meetName}
             />
             <TextField
@@ -38,12 +39,6 @@ export default function EditMeetForm({ meet, meetId, action }) {
               variant="filled"
               disabled
               defaultValue={meet.holderId}
-            />
-            <TextField
-              label="Location"
-              variant="filled"
-              disabled
-              defaultValue={meet.locationId}
             />
             <Box
               sx={{
@@ -71,6 +66,37 @@ export default function EditMeetForm({ meet, meetId, action }) {
   );
 }
 
+export function MakeDecisonForm({ meet, meetId, action }) {
+  const [message, formAction, pending] = useActionState(action, null);
+  return (
+    <>
+      <Box>
+        <Box component="form" action={formAction}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <input type="hidden" value={meetId} name="meetid" />
+            <TextField
+              name="finalplaceid"
+              label="Final Place ID"
+              variant="filled"
+              required
+            />
+            <Box>
+              <Typography variant="body1">
+                <b>Final Time: </b>
+              </Typography>
+              <input type="datetime-local" name="finaltime" required />
+            </Box>
+            <Button type="submit" color="warning" disabled={pending}>
+              Make final decision
+            </Button>
+            {pending ? "please wait..." : message}
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
+}
+
 export function DeletePage({ meetId, action }) {
   const [message, formAction, pending] = useActionState(action, null);
   const [open, setOpen] = useState(false);
@@ -84,7 +110,7 @@ export function DeletePage({ meetId, action }) {
   };
 
   return (
-    <div>
+    <Box>
       <Button variant="outlined" color="warning" onClick={handleClickOpen}>
         Delete Meet
       </Button>
@@ -109,6 +135,54 @@ export function DeletePage({ meetId, action }) {
           </Box>
         </DialogContent>
       </Dialog>
-    </div>
+    </Box>
+  );
+}
+
+export function TransferPage({ meetId, action }) {
+  const [message, formAction, pending] = useActionState(action, null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box>
+      <Button variant="outlined" color="info" onClick={handleClickOpen}>
+        Transfer Meet
+      </Button>
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Are you sure you want to transfer this meet?</DialogTitle>
+        <DialogContent sx={{ margin: "auto" }}>
+          <Box component="form" action={formAction}>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+            >
+              <input type="hidden" name="meetid" value={meetId} />
+              <TextField
+                name="newholderid"
+                label="ID of the new holder"
+                variant="filled"
+                required
+              />
+              <Button
+                color="warning"
+                disabled={pending}
+                type="submit"
+                sx={{ paddingX: "3rem" }}
+              >
+                Yes
+              </Button>
+              {pending ? "please wait..." : message}
+            </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </Box>
   );
 }

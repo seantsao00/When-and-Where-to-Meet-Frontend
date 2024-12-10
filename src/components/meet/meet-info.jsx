@@ -1,3 +1,4 @@
+"use server";
 import { Stack, Card, Typography, List, ListItemText } from "@mui/material";
 
 export default async function MeetInfo({ meet }) {
@@ -17,11 +18,9 @@ export default async function MeetInfo({ meet }) {
           <Typography variant="body1">
             <b>Holder: </b> {meet.holderId}
           </Typography>
-          {meet.locationId && (
-            <Typography variant="body1">
-              <b>Location: </b> {meet.locationId}
-            </Typography>
-          )}
+          <Typography variant="body1">
+            <b>Meet duration: </b> {meet.duration}
+          </Typography>
         </Stack>
       </Stack>
     </Card>

@@ -1,8 +1,13 @@
 import { auth, fetchWithAuth } from "@/auth";
-import EditMeetForm, { DeletePage } from "./meet-edit-form";
+import EditMeetForm, {
+  DeletePage,
+  MakeDecisonForm,
+  TransferPage,
+} from "./meet-edit-form";
 import { redirect } from "next/navigation";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import ListLocations from "./list-locations";
+import BestDecisions from "./list-best-decisions";
 
 async function action(_, formData) {
   "use server";
@@ -10,8 +15,7 @@ async function action(_, formData) {
   const meetName = formData.get("meetname");
   const meetDescription = formData.get("meetdescription");
   const isPublic = formData.get("ispublic");
-  const usrId = await auth();
-  // const response = await fetchWithAuth(`/api/meets/${usrId}`, {
+  // const response = await fetchWithAuth(`/api/meets/${meetId}`, {
   //   method: "PATCH",
   //   body: JSON.stringify({ meetName, meetDescription, isPublic }),
   // });
@@ -20,8 +24,35 @@ async function action(_, formData) {
   // }
   redirect(`/${meetId}`);
 }
+async function makeDecisionAction(_, formData) {
+  "use server";
+  const meetId = formData.get("meetid");
+  const finalPlaceId = formData.get("finalplaceid");
+  const finalTime = formData.get("finaltime").replace("T", " ");
+  // const response = await fetchWithAuth(`/api/meets/${meetId}/final-decision`, {
+  //   method: "POST",
+  //   body: JSON.stringify({ meetId, finalPlaceId, finalTime }),
+  // });
+  // if (!response.ok) {
+  //   return "error";
+  // }
+  redirect(`/${meetId}`);
+}
+async function transferAction(_, formData) {
+  "use server";
+  const meetId = formData.get("meetid");
+  const newHolderId = formData.get("newholderid");
+  // const response = await fetchWithAuth(`/api/meets/${meetId}/transfer`, {
+  //   method: "PATCH",
+  //   body: JSON.stringify({ newHolderId }),
+  // });
+  // if (!response.ok) {
+  //   return "error";
+  // }
+  redirect(`/${meetId}`);
+}
 
-async function deletePage(_, formData) {
+async function deletePageAction(_, formData) {
   "use server";
   const meetId = formData.get("meetid");
   const response = await fetchWithAuth(`/api/meets/${meetId}`, {
@@ -47,9 +78,14 @@ export default async function Meet({ params }) {
     meetName: "My Meet",
     meetDescription: "This is my meet",
     isPublic: true,
-    holderId: "alice",
+    holderId: "ww",
     locationId: "zoom",
   };
+  const usrId = await auth();
+  if (meet.holderId !== usrId)
+    return (
+      <Typography variant="h3">Only meet holder can edit meet!</Typography>
+    );
   return (
     <Box
       sx={{
@@ -78,7 +114,18 @@ export default async function Meet({ params }) {
           }}
         >
           <EditMeetForm meet={meet} meetId={meetId} action={action} />
-          <DeletePage action={deletePage} meetId={meetId} />
+          <Stack direction="row" spacing={2}>
+            <DeletePage action={deletePageAction} meetId={meetId} />
+            <TransferPage action={transferAction} meetId={meetId} />
+          </Stack>
+          <Divider />
+          <BestDecisions meetId={meetId} />
+          <Divider />
+          <MakeDecisonForm
+            meet={meet}
+            meetId={meetId}
+            action={makeDecisionAction}
+          />
         </Box>
         <Box sx={{ width: "50%" }}>
           <ListLocations meetId={meetId}></ListLocations>

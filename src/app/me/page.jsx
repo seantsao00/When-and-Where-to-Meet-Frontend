@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { fetchWithAuth } from "@/auth";
 import { Card, Stack, Typography, List, ListItemText } from "@mui/material";
 
 export default async function Info() {

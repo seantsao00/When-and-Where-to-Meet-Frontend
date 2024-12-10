@@ -8,7 +8,7 @@ import {
   InternalTimeTable,
   minusHashMap,
 } from "@/utils";
-import { Box, Card, Stack } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import Gradient from "javascript-color-gradient";
 import { useState } from "react";
 
@@ -153,6 +153,34 @@ function AllTimeTable({ meet, allAvailability }) {
   );
 }
 
+export function FinalDecision({ decision }) {
+  return (
+    <Stack spacing={1} direction="column" alignItems="center">
+      <Typography variant="h5" textAlign="center">
+        Final Decision
+      </Typography>
+      <Typography variant="h6" textAlign="center">
+        <b>Decided start time:</b> {decision.finalTime}
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        <b>Location ID:</b> {decision.locationId}
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        <b>Location name:</b> {decision.locationName}
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        <b>Location address:</b> {decision.locationAddress}
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        <b>Location price:</b> {decision.locationPrice}
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        <b>Location capacity:</b> {decision.locationCapacity}
+      </Typography>
+    </Stack>
+  );
+}
+
 export default function TimeTable({
   meet,
   initAllAvailabilities,
@@ -175,11 +203,15 @@ export default function TimeTable({
   return (
     <Stack direction="row" spacing={2}>
       <Card sx={tableStyle}>
-        <MyTimeTable
-          meet={meet}
-          availability={myAvailabilities}
-          setAvailability={setMyAvailabilities}
-        />
+        {"finalDecision" in meet ? (
+          <FinalDecision decision={meet.finalDecision} />
+        ) : (
+          <MyTimeTable
+            meet={meet}
+            availability={myAvailabilities}
+            setAvailability={setMyAvailabilities}
+          />
+        )}
       </Card>
       <Card sx={tableStyle}>
         <AllTimeTable meet={meet} allAvailability={allAvailabilities} />

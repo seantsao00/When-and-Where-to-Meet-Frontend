@@ -3,21 +3,22 @@
 import { Chip, Box, Stack, TextField, Button, Typography } from "@mui/material";
 import { useActionState, useEffect, useRef, useState } from "react";
 
-export default function LocationAdder({ meetId, action }) {
-  const [locationsRaw, setLocationsRaw] = useState(
-    JSON.stringify({ locationIds: [] }),
-  );
+export default function BatchAddForm({
+  action,
+  newElementText,
+  newIdText,
+  updateText,
+  addText,
+}) {
+  const [locationsRaw, setLocationsRaw] = useState(JSON.stringify([]));
   const [locations, setLocations] = useState([]);
   const [input, setInput] = useState("");
-  const [message, formAction, pending] = useActionState(
-    action.bind(null, meetId),
-    null,
-  );
+  const [message, formAction, pending] = useActionState(action, null);
 
   const handleClick = (idx) => {
     const newLocations = locations.filter((_, i) => i !== idx);
     setLocations(newLocations);
-    setLocationsRaw(JSON.stringify({ locationIds: newLocations }));
+    setLocationsRaw(JSON.stringify(newLocations || []));
   };
 
   return (
@@ -25,7 +26,7 @@ export default function LocationAdder({ meetId, action }) {
       <Stack direction="column" spacing={1}>
         <Stack direction="column" spacing={1}>
           <Box>
-            <Typography variant="body1">New Location to be added:</Typography>
+            <Typography variant="body1">{newElementText}:</Typography>
             <Stack direction="row" spacing={1}>
               {locations.map((locationId, idx) => (
                 <Chip
@@ -37,7 +38,7 @@ export default function LocationAdder({ meetId, action }) {
             </Stack>
           </Box>
           <TextField
-            label="New location ID"
+            label={newIdText}
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
@@ -48,18 +49,16 @@ export default function LocationAdder({ meetId, action }) {
             onClick={() => {
               if (!input) return;
               setLocations([...locations, input]);
-              setLocationsRaw(
-                JSON.stringify({ locationIds: [...locations, input] }),
-              );
+              setLocationsRaw(JSON.stringify([...locations, input]));
               setInput("");
             }}
           >
-            Add location
+            {addText}
           </Button>
           <Box component="form" action={formAction}>
-            <input type="hidden" value={locationsRaw} name="locations" />
+            <input type="hidden" value={locationsRaw} name="choices" />
             <Button type="submit" disabled={pending}>
-              Update added locations
+              {updateText}
             </Button>
             {pending ? "please wait..." : message}
           </Box>

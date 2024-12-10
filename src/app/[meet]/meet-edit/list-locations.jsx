@@ -10,22 +10,41 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import LocationAdder from "./edit-locations";
 import { revalidatePath } from "next/cache";
+import BatchAddForm from "@/components/batch-add-form";
 
 async function addLocation(meetId, _, formData) {
   "use server";
   try {
-    const locationsRaw = formData.get("locations");
-    const locations = JSON.parse(locationsRaw);
-    console.log(locations);
+    const locationsRaw = formData.get("choices");
+    const locations = { locationIds: JSON.parse(locationsRaw) };
+    console.log(meetId, locations);
     const response = await fetchWithAuth(
       `/api/meets/${meetId}/location-options`,
       {
         method: "POST",
-        body: locationsRaw,
+        body: JSON.stringify(locations),
       },
     );
+    if (!response.ok) return "Error";
+    revalidatePath(`/${meetId}/meet-edit`);
+    return "Success";
+  } catch (e) {
+    console.log(e);
+    return "Error";
+  }
+}
+
+async function inviteUsers(meetId, _, formData) {
+  "use server";
+  try {
+    const usrsRaw = formData.get("choices");
+    const usrIds = { usrIds: JSON.parse(usrsRaw) };
+    console.log(meetId, usrIds);
+    const response = await fetchWithAuth(`/api/meets/${meetId}/invite`, {
+      method: "POST",
+      body: JSON.stringify(usrIds),
+    });
     if (!response.ok) return "Error";
     revalidatePath(`/${meetId}/meet-edit`);
     return "Success";
@@ -92,12 +111,7 @@ export default async function ListLocations({ meetId }) {
                   key={locationId}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
-                    title: `click to decide ${locationId} as final location`,
-                    cursor: "pointer",
                   }}
-                  // onClick={() => {
-                  //   // TODO: decide final location
-                  // }}
                 >
                   <TableCell component="th" scope="row">
                     {locationId}
@@ -120,7 +134,20 @@ export default async function ListLocations({ meetId }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <LocationAdder meetId={meetId} action={addLocation} />
+      <BatchAddForm
+        action={addLocation.bind(null, meetId)}
+        updateText="Update added locations"
+        newIdText="New location ID"
+        newElementText="New Locations to be added"
+        addText="Add location"
+      />
+      <BatchAddForm
+        action={inviteUsers.bind(null, meetId)}
+        updateText="Invite users above"
+        newIdText="New user ID to invite"
+        newElementText="New Users to be invited"
+        addText="Add users to invite"
+      />
     </Stack>
   );
 }
