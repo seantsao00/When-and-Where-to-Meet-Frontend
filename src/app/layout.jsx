@@ -4,53 +4,28 @@ import Box from "@mui/material/Box";
 import Navbar from "@/components/navbar";
 import theme from "@/theme";
 import { Stack } from "@mui/material";
-import Head from "next/head";
 
 export const metadata = {
   title: "WhenWhere2Meet",
   description: "Meet at any time, any place!",
+  openGraph: {
+    title: "WhenWhere2Meet",
+    description: "Meet at any time, any place!",
+    url: "https://db-finalproject.jikuai.dev/og.png",
+  },
+  twitter: {
+    title: "WhenWhere2Meet",
+    description: "Meet at any time, any place!",
+    card: "summary_large_image",
+    site: "@lighter_app",
+    image: "https://db-finalproject.jikuai.dev/og.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <title key="title">When and where to Meet</title>
-        <meta
-          key="description"
-          name="description"
-          content="Meet at any time, any place!"
-        />
-        <meta key="og-title" property="og:title" content="WhenWhere2Meet" />
-        <meta
-          key="og-description"
-          property="og:description"
-          content="Meet at any time, any place!"
-        />
-        <meta
-          key="og-url"
-          property="og:url"
-          content="https://db-finalproject.jikuai.dev/og.png"
-        />
-        <meta
-          key="twitter-title"
-          name="twitter:title"
-          content="WhenWhere2Meet"
-        />
-        <meta
-          key="twitter-description"
-          name="twitter:description"
-          content="Meet at any time, any place!"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@lighter_app" />
-        <meta
-          name="twitter:image"
-          content="https://db-finalproject.jikuai.dev/og.png"
-        />
-
-        <link rel="canonical" href="https://db-finalproject.jikuai.dev" />
-      </Head>
+      <head></head>
       <body className="m-0 h-screen w-screen">
         <ThemeProvider theme={theme}>
           <Stack
