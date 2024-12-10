@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Stack } from "@mui/material";
 import { usePathname } from "next/navigation";
 
 const PathTypes = Object.freeze({
@@ -22,16 +22,15 @@ function MeList({ path }) {
         path === route ? (
           <Typography
             key={route}
-            color="black"
+            color="secondary"
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1 }}
           >
             {name}
           </Typography>
         ) : (
           <Link key={route} href={`/me/${route}`}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div">
               {name}
             </Typography>
           </Link>
@@ -51,16 +50,15 @@ function MeetList({ meetId, path }) {
         path === route ? (
           <Typography
             key={route}
-            color="black"
+            color="secondary"
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1 }}
           >
             {name}
           </Typography>
         ) : (
           <Link key={route} href={`/${meetId}/${route}`}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="span">
               {name}
             </Typography>
           </Link>
@@ -73,22 +71,17 @@ function HomeList({ path }) {
   return (
     <>
       <Link href={`/me`}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div">
           UserInfo
         </Typography>
       </Link>
       {path === "/new-meet" ? (
-        <Typography
-          variant="h6"
-          color="black"
-          component="div"
-          sx={{ flexGrow: 1 }}
-        >
+        <Typography variant="h6" color="secondary" component="div">
           New Meet
         </Typography>
       ) : (
         <Link href={`/new-meet`}>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div">
             New Meet
           </Typography>
         </Link>
@@ -104,20 +97,15 @@ export function Header({ usrId }) {
   if (serializedPath.at(1) === "me") type = PathTypes.ME;
   else if (
     serializedPath.at(1).length > 0 &&
-    serializedPath.at(1) !== "new-meet"
+    serializedPath.at(1) !== "new-meet" &&
+    serializedPath.at(1) !== "about"
   )
     type = PathTypes.MEET;
   else type = PathTypes.HOME;
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "1rem",
-      }}
-    >
+    <Stack direction="row" gap={1} sx={{ width: "100%" }}>
       <Link href="/">
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div">
           WhereWhen2meet
         </Typography>
       </Link>
@@ -129,6 +117,22 @@ export function Header({ usrId }) {
           path={serializedPath.at(2) || ""}
         />
       )}
-    </Box>
+      {path === "/about" ? (
+        <Typography
+          variant="h6"
+          color="secondary"
+          component="div"
+          marginLeft="auto"
+        >
+          About
+        </Typography>
+      ) : (
+        <Link href={`/about`} style={{ marginLeft: "auto" }}>
+          <Typography variant="h6" component="div">
+            About
+          </Typography>
+        </Link>
+      )}
+    </Stack>
   );
 }
