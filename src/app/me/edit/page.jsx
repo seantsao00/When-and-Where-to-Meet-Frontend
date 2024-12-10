@@ -4,12 +4,12 @@ import { auth, fetchWithAuth } from "@/auth";
 
 async function action(_, formData) {
   "use server";
-  const userName = formData.get("username");
-  const userEmail = formData.get("useremail");
-  const userId = await auth();
-  const response = await fetchWithAuth(`/api/users/${userId}`, {
+  const usrName = formData.get("usrname");
+  const usrEmail = formData.get("usremail");
+  const usrId = await auth();
+  const response = await fetchWithAuth(`/api/usrs/${usrId}`, {
     method: "PATCH",
-    body: JSON.stringify({ userName, userEmail }),
+    body: JSON.stringify({ usrName, usrEmail }),
   });
   if (!response.ok) {
     return "error";
@@ -18,18 +18,18 @@ async function action(_, formData) {
 }
 
 export default async function Info() {
-  //   const userId = await auth();
-  //   const response = await fetchWithAuth(`/api/users/${userId}`);
+  //   const usrId = await auth();
+  //   const response = await fetchWithAuth(`/api/usrs/${usrId}`);
   //   if (response.status === 403) {
   //     return <h1>Forbidden</h1>;
   //   }
   //   if (!response.ok)= 200) {
   //     return <h1>Something went wrong</h1>;
   //   }
-  //   const userData = await response.json();
-  const userData = {
-    userName: "Alice",
-    userEmail: "alice@bob.com",
+  //   const usrData = await response.json();
+  const usrData = {
+    usrName: "Alice",
+    usrEmail: "alice@bob.com",
   };
-  return <EditInfo userData={userData} action={action} />;
+  return <EditInfo usrData={usrData} action={action} />;
 }

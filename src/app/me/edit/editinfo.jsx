@@ -2,7 +2,7 @@
 import { Button, Box, TextField, Typography } from "@mui/material";
 import { useActionState } from "react";
 
-export default function EditInfo({ userData, action }) {
+export default function EditInfo({ usrData, action }) {
   const [message, formAction, pending] = useActionState(action, null);
   return (
     <>
@@ -11,16 +11,16 @@ export default function EditInfo({ userData, action }) {
         <Box component="form" action={formAction}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
-              name="username"
+              name="usrname"
               label="User name"
               variant="filled"
-              defaultValue={userData.userName}
+              defaultValue={usrData.usrName}
             />
             <TextField
-              name="useremail"
+              name="usremail"
               label="User Email"
               variant="filled"
-              defaultValue={userData.userEmail}
+              defaultValue={usrData.usrEmail}
             />
             <Button type="submit" disabled={pending}>
               Update

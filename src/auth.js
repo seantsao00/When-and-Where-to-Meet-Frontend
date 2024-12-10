@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function fetchWithAuth(url, options) {
-  const userId = await auth();
-  if (options && userId) {
+  const usrId = await auth();
+  if (options && usrId) {
     if (!options.headers) options.headers = {};
-    options.headers.Authorization = `Bearer ${userId}`;
+    options.headers.Authorization = `Bearer ${usrId}`;
   }
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, options);
 }
@@ -18,14 +18,14 @@ export async function fetchNoAuth(url, options) {
 
 export async function auth() {
   const cookieStore = await cookies();
-  return cookieStore.get("userid")?.value;
+  return cookieStore.get("usrid")?.value;
 }
 
 export async function signIn(_, formData) {
   const cookieStore = await cookies();
-  // const response = await fetchNoAuth("/api/users", {
+  // const response = await fetchNoAuth("/api/usrs", {
   //   method: "GET",
-  //   body: JSON.stringify({ email: formData.get("useremail") }),
+  //   body: JSON.stringify({ email: formData.get("usremail") }),
   // });
   // if (response.status === 404) {
   //   return 'no such user';
@@ -33,27 +33,27 @@ export async function signIn(_, formData) {
   // if (!response.ok) {
   //   return 'unknown error';
   // }
-  cookieStore.set("userid", formData.get("userid"));
+  cookieStore.set("usrid", formData.get("usrid"));
   revalidatePath("/");
   return "success";
 }
 
 export async function signUp(_, formData) {
   const cookieStore = await cookies();
-  const name = formData.get("username");
-  const email = formData.get("useremail");
-  const response = await fetchNoAuth("/api/users", {
+  const name = formData.get("usrname");
+  const email = formData.get("usremail");
+  const response = await fetchNoAuth("/api/usrs", {
     method: "POST",
     body: JSON.stringify({ name, email }),
   });
   if (!response.ok) return "error";
-  const userId = (await response.json()).userId;
-  cookieStore.set("userid", userId);
+  const usrId = (await response.json()).usrId;
+  cookieStore.set("usrid", usrId);
   revalidatePath("/");
   return "success";
 }
 
 export async function signOut() {
   const cookieStore = await cookies();
-  cookieStore.delete("userid");
+  cookieStore.delete("usrid");
 }

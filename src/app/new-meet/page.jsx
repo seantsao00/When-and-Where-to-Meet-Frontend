@@ -8,7 +8,7 @@ async function action(_, formData) {
   const meetDescription = formData.get("meetdescription");
   const isPublic = formData.get("ispublic");
   if (meetName === "New Meet") return 'You cannot use the name "New Meet"';
-  const userId = await auth();
+  const usrId = await auth();
   const response = await fetchWithAuth(`/api/meets`, {
     method: "POST",
     body: JSON.stringify({ meetName, meetDescription, isPublic }),

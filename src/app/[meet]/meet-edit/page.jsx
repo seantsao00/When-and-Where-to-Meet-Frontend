@@ -10,8 +10,8 @@ async function action(_, formData) {
   const meetName = formData.get("meetname");
   const meetDescription = formData.get("meetdescription");
   const isPublic = formData.get("ispublic");
-  const userId = await auth();
-  // const response = await fetchWithAuth(`/api/meets/${userId}`, {
+  const usrId = await auth();
+  // const response = await fetchWithAuth(`/api/meets/${usrId}`, {
   //   method: "PATCH",
   //   body: JSON.stringify({ meetName, meetDescription, isPublic }),
   // });

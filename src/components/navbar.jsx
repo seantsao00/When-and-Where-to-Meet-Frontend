@@ -5,12 +5,12 @@ import { Header } from "./navbar-client";
 import { auth } from "@/auth";
 
 export default async function Navbar() {
-  const userId = await auth();
+  const usrId = await auth();
   return (
     <Box component="nav" sx={{ width: "100vw" }}>
       <AppBar position="sticky">
         <Toolbar>
-          <Header userId={userId} />
+          <Header usrId={usrId} />
         </Toolbar>
       </AppBar>
     </Box>

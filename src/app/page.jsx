@@ -3,9 +3,9 @@ import { auth } from "@/auth";
 import { Login, Authed, Signup } from "@/components/home";
 
 export default async function Home() {
-  const userId = await auth();
-  return userId ? (
-    <Authed userId={userId} />
+  const usrId = await auth();
+  return usrId ? (
+    <Authed usrId={usrId} />
   ) : (
     <>
       <Login />

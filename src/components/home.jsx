@@ -10,8 +10,8 @@ export function Signup() {
       <Typography variant="h3">Or sign up</Typography>
       <Box component="form" action={formAction} sx={{ marginTop: "2rem" }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <TextField name="username" label="User Name" variant="filled" />
-          <TextField name="useremail" label="User Email" variant="filled" />
+          <TextField name="usrname" label="User Name" variant="filled" />
+          <TextField name="usremail" label="User Email" variant="filled" />
           <Button disabled={pending} type="submit">
             Sign Up
           </Button>
@@ -28,7 +28,7 @@ export function Login() {
       <Typography variant="h3">Please login first</Typography>
       <Box component="form" action={formAction} sx={{ marginTop: "2rem" }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <TextField name="userid" label="User ID" variant="filled" />
+          <TextField name="usrid" label="User ID" variant="filled" />
           <Button disabled={pending} type="submit">
             Login
           </Button>
@@ -38,10 +38,10 @@ export function Login() {
     </Box>
   );
 }
-export function Authed({ userId }) {
+export function Authed({ usrId }) {
   return (
     <Box>
-      <Typography variant="h3">Hi {userId}</Typography>
+      <Typography variant="h3">Hi {usrId}</Typography>
       <Box component="form" action={signOut}>
         <Button type="submit">Logout</Button>
       </Box>

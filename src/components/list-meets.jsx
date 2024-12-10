@@ -3,8 +3,8 @@ import { Stack, Card, Typography } from "@mui/material";
 import { RenderTable } from "./list-meets-client";
 
 export default async function ListMeet({ title, type }) {
-  const userId = await auth();
-  //   const response = await fetchWithAuth(`/api/users/${userId}/${type}`);
+  const usrId = await auth();
+  //   const response = await fetchWithAuth(`/api/usrs/${usrId}/${type}`);
   //   if (!response.ok) {
   //     return <Typography variant="h3">Something went wrong</Typography>;
   //   }
