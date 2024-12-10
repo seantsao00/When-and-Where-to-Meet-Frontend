@@ -55,35 +55,12 @@ async function inviteUsers(meetId, _, formData) {
 }
 
 export default async function ListLocations({ meetId }) {
-  //   const response = await fetchWithAuth(`/api/meets/${meetId}/location-options`);
-  //   if (!response.ok) {
-  //     return <Typography variant="h3">Error</Typography>;
-  //   }
-  //   const locations = (await response.json()).items;
+  const response = await fetchWithAuth(`/api/meets/${meetId}/location-options`);
+  if (!response.ok) {
+    return <Typography variant="h3">Error</Typography>;
+  }
+  const locations = (await response.json()).items;
 
-  const locations = [
-    {
-      locationId: "zoom",
-      locationName: "Zoom",
-      locationAddress: "zoom.us",
-      locationPrice: 0,
-      locationCapacity: 100,
-    },
-    {
-      locationId: "teams",
-      locationName: "Teams",
-      locationAddress: "teams.microsoft.com",
-      locationPrice: 0,
-      locationCapacity: 100,
-    },
-    {
-      locationId: "meet",
-      locationName: "Meet",
-      locationAddress: "meet.google.com",
-      locationPrice: 0,
-      locationCapacity: 100,
-    },
-  ];
   return (
     <Stack direction="column" spacing={1}>
       <Typography variant="h6">Possible Locations</Typography>

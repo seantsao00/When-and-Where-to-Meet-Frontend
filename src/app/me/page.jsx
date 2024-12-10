@@ -1,20 +1,16 @@
-import { auth } from "@/auth";
+import { auth, fetchWithAuth } from "@/auth";
 import { Card, Stack, Typography, List, ListItemText } from "@mui/material";
 
 export default async function Info() {
   const usrId = await auth();
-  //   const response = await fetchWithAuth(`/api/usrs/${usrId}`);
-  //   if (response.status === 403) {
-  //     return <h1>Forbidden</h1>;
-  //   }
-  //   if (!response.ok) {
-  //     return <h1>Something went wrong</h1>;
-  //   }
-  //   const usrData = await response.json();
-  const usrData = {
-    usrName: "Alice",
-    usrEmail: "alice@bob.com",
-  };
+  const response = await fetchWithAuth(`/api/usrs/${usrId}`);
+  if (response.status === 403) {
+    return <h1>Forbidden</h1>;
+  }
+  if (!response.ok) {
+    return <h1>Something went wrong</h1>;
+  }
+  const usrData = await response.json();
   return (
     <>
       <Stack spacing={1}>

@@ -19,7 +19,9 @@ export default async function MeetInfo({ meet }) {
             <b>Holder: </b> {meet.holderId}
           </Typography>
           <Typography variant="body1">
-            <b>Meet duration: </b> {meet.duration}
+            <b>Meet duration: </b> {meet.duration.hours} hr
+            {"minutes" in meet.duration && ` ${meet.duration.minutes} min`}
+            {"seconds" in meet.duration && ` ${meet.duration.seconds} sec`}
           </Typography>
         </Stack>
       </Stack>

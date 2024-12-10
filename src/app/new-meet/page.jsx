@@ -10,7 +10,7 @@ async function action(_, formData) {
   const endTime = formData.get("endtime");
   const startDate = formData.get("startdate");
   const endDate = formData.get("enddate");
-  const duration = formData.get("duration");
+  const duration = `${formData.get("durationhh")}:${formData.get("durationmm")}:00`;
   const isPublic = formData.get("ispublic") == "true";
   for (const w of [
     meetName,
@@ -33,7 +33,6 @@ async function action(_, formData) {
     return "End time must be a multiple of 15 minutes";
   if (meetName === "New Meet") return 'You cannot use the name "New Meet"';
 
-  const usrId = await auth();
   const response = await fetchWithAuth(`/api/meets`, {
     method: "POST",
     body: JSON.stringify({

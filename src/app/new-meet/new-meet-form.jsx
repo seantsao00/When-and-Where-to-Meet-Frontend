@@ -50,12 +50,25 @@ export default function NewMeetForm({ action }) {
               />
             </WithLabel>
             <WithLabel title="Expected meet duration">
-              <input
-                type="text"
-                name="duration"
-                required
-                defaultValue="1 hour"
-              />
+              <Box>
+                <input
+                  type="number"
+                  name="durationhh"
+                  required
+                  defaultValue="1"
+                  min="0"
+                  style={{ width: "2rem" }}
+                />
+                hrs{" "}
+                <input
+                  type="number"
+                  name="durationmm"
+                  required
+                  defaultValue="0"
+                  style={{ width: "2rem" }}
+                />
+                mins
+              </Box>
             </WithLabel>
             <WithLabel title="Start Time">
               <input

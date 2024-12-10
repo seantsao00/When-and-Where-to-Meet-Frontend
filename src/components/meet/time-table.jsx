@@ -138,7 +138,7 @@ function AllTimeTable({ meet, allAvailability }) {
   for (const ava in allAvailability) mx = Math.max(mx, allAvailability[ava]);
   const gradient = new Gradient()
     .setColorGradient(myGray, myGreen)
-    .setMidpoint(mx + 1);
+    .setMidpoint(Math.max(2, mx + 1));
   const getColor = (i, j, cell) => {
     return cell > 0 ? gradient.getColor(cell) : myGray;
   };

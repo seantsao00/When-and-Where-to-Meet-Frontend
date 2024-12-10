@@ -94,8 +94,8 @@ export class InternalTimeTable {
       }
     }
 
-    for (const timestamp of Object.keys(availabilities)) {
-      const [i, j] = this.getIndex(timeStampToDate(timestamp));
+    for (let timestamp of Object.keys(availabilities)) {
+      const [i, j] = this.getIndex(new Date(timestamp));
       this.timeCells[i][j] = availabilities[timestamp];
     }
   }

@@ -1,20 +1,16 @@
-import { auth } from "@/auth";
+import { auth, fetchWithAuth } from "@/auth";
 import { Stack, Card, Typography } from "@mui/material";
 import { RenderTable } from "./list-meets-client";
 
 export default async function ListMeet({ title, type }) {
   const usrId = await auth();
-  //   const response = await fetchWithAuth(`/api/usrs/${usrId}/${type}`);
-  //   if (!response.ok) {
-  //     return <Typography variant="h3">Something went wrong</Typography>;
-  //   }
-  //   const data = await response.json();
-  //   const rows = data.items;
-  const rows = [
-    { meetId: 1, meetName: "Alice" },
-    { meetId: 2, meetName: "Bob" },
-    { meetId: 3, meetName: "Caroline" },
-  ];
+  const response = await fetchWithAuth(`/api/meets/${type}/${usrId}`);
+  if (!response.ok) {
+    return <Typography variant="h3">Something went wrong</Typography>;
+  }
+  const data = await response.json();
+  console.log(data);
+  const rows = data.items;
   return (
     <Stack spacing={1}>
       <Card sx={{ paddingX: "1.5rem", paddingY: "0.5rem" }}>

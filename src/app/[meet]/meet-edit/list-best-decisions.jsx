@@ -1,3 +1,4 @@
+import { fetchWithAuth } from "@/auth";
 import BatchAddForm from "@/components/batch-add-form";
 import { FinalDecision } from "@/components/meet/time-table";
 import {
@@ -13,34 +14,15 @@ import {
 } from "@mui/material";
 
 export default async function BestDecisions({ meetId }) {
-  //   const response = await fetchWithAuth(`/api/meets/${meetId}/best-decision`);
-  //   if (!response.ok) {
-  //     return <Typography variant="h3">Error</Typography>;
-  //   }
-  //   const bestDecisions = (await response.json()).items;
+  const response = await fetchWithAuth(`/api/meets/${meetId}/best-decision`);
+  if (!response.ok) {
+    return <Typography variant="h3">Error</Typography>;
+  }
+  const bestDecisions = (await response.json()).items;
+  console.log(bestDecisions);
 
-  const bestDecisions = [
-    {
-      finalTime: "2022-01-01 00:00:00",
-      locationId: "zoom",
-      locationName: "Zoom",
-      availableUsrs: 2,
-    },
-    {
-      finalTime: "2022-01-01 00:15:00",
-      locationId: "teams",
-      locationName: "Teams",
-      availableUsrs: 3,
-    },
-    {
-      finalTime: "2022-01-01 00:30:00",
-      locationId: "meet",
-      locationName: "Meet",
-      availableUsrs: 5,
-    },
-  ];
   return (
-    bestDecisions.length > 0 && (
+    bestDecisions?.length > 0 && (
       <Stack direction="column" spacing={1}>
         <Typography variant="h6">Suggested decisions</Typography>
         <TableContainer component={Paper}>
