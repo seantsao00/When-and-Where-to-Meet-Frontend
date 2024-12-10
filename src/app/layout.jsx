@@ -11,14 +11,16 @@ export const metadata = {
   openGraph: {
     title: "WhenWhere2Meet",
     description: "Meet at any time, any place!",
-    url: "https://db-finalproject.jikuai.dev/og.png",
+    url: "https://db-finalproject.jikuai.dev",
+    type: "website",
+    images: ["https://db-finalproject.jikuai.dev/og.png"],
   },
   twitter: {
     title: "WhenWhere2Meet",
     description: "Meet at any time, any place!",
     card: "summary_large_image",
     site: "@lighter_app",
-    image: "https://db-finalproject.jikuai.dev/og.png",
+    images: ["https://db-finalproject.jikuai.dev/og.png"],
   },
 };
 

@@ -3,6 +3,7 @@ import MeetInfo from "@/components/meet/meet-info";
 import TimeTable from "@/components/meet/time-table";
 import { Stack, Typography } from "@mui/material";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 async function updateAvailabilitiesAction(meetId, _, formData) {
   "use server";
@@ -39,8 +40,7 @@ export default async function Meet({ params }) {
       return <Typography variant="h3">You are not invited.</Typography>;
     }
     if (!res.ok) return <Typography variant="h3">Error</Typography>;
-    revalidatePath(`/${meetId}`);
-    return <Typography variant="h3">You are not invited.</Typography>;
+    redirect(`/${meetId}`);
   }
   if (meetDetail.status === 404) {
     return <Typography variant="h3">Meet not found</Typography>;
