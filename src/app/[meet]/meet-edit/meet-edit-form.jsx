@@ -89,7 +89,7 @@ export function MakeDecisonForm({ meet, meetId, action }) {
             <Button type="submit" color="warning" disabled={pending}>
               Make final decision
             </Button>
-            {pending ? "please wait..." : message}
+            {pending ? "please wait..." : "ok"}
           </Box>
         </Box>
       </Box>
