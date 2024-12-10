@@ -62,13 +62,21 @@ export default async function Meet({ params }) {
   const myAvailabilities = [];
   const allAvailabilities = [];
 
-  // for (const data of res.items) {
-  //   if (typeof data !== "object") continue;
-  //   for (const ava of data.availabilities) {
-  //     allAvailabilities.push(ava.timeSegment);
-  //     if (data.usrId == usrId) myAvailabilities.push(ava.timeSegment);
-  //   }
-  // }
+  for (const data of res.items) {
+    if (typeof data !== "object") continue;
+    for (const ava of data.availabilities) {
+      const time = ava.timeSegment.replace("T", " ").replace(".000Z", "");
+      console.log(
+        time,
+        meet.startDate,
+        meet.startTime,
+        meet.endDate,
+        meet.endTime,
+      );
+      allAvailabilities.push(time);
+      if (data.usrId == usrId) myAvailabilities.push(time);
+    }
+  }
 
   return (
     <Stack direction="column" spacing={2}>
